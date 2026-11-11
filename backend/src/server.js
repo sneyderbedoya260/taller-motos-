@@ -14,7 +14,7 @@ const puerto = process.env.PORT || 4000;
     }
     aplicacion.listen(puerto, () => console.log(`API en http://localhost:${puerto}/api`));
   } catch (errorInicio) {
-    console.error('No se pudo iniciar:', errorInicio.message);
+    console.error('No se pudo iniciar:', errorInicio);
     process.exit(1);
   }
 })();

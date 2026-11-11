@@ -85,6 +85,7 @@ backend (`backend/.env`):
 | `DB_NAME` | nombre de la base | `taller_motos` |
 | `DB_USER` | usuario de mysql | `root` |
 | `DB_PASSWORD` | clave de mysql | |
+| `DB_SSL` | habilita TLS para proveedores administrados como TiDB Cloud | `false` |
 | `DB_SYNC` | si es `true`, sequelize crea las tablas faltantes al iniciar. con el script sql se deja en `false` | `false` |
 | `CORS_ORIGIN` | origenes permitidos, separados por coma | `http://localhost:5173` |
 
