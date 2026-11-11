@@ -67,6 +67,8 @@ npm run dev
 
 abrir `http://localhost:5173`.
 
+Para desplegar el frontend en Railway, usa `frontend` como directorio raíz y configura el dominio público de la API en `VITE_API_URL` (incluyendo `/api`). Vite también carga `frontend/.env.production` al compilar para producción.
+
 ## variables de entorno
 
 backend (`backend/.env`):
