@@ -1,0 +1,450 @@
+{
+  "info": {
+    "_postman_id": "4b5e3b15-44fb-4c65-9297-6aa7878f181a",
+    "name": "Taller de Motos API",
+    "description": "Colección para probar todos los endpoints de la API. Ejecuta las solicitudes de creación para guardar automáticamente clientId, bikeId, orderId e itemId.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api",
+      "type": "string"
+    },
+    {
+      "key": "clientId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "bikeId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "orderId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "itemId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "API health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Comprueba que la API esté disponible."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clients",
+      "item": [
+        {
+          "name": "Create client",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('clientId', pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ana Pérez\",\n  \"phone\": \"3001234567\",\n  \"email\": \"ana.perez@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clients"
+              ]
+            },
+            "description": "Crea un cliente de ejemplo y guarda su ID en clientId."
+          },
+          "response": []
+        },
+        {
+          "name": "List clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clients?search=Ana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clients"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Ana",
+                  "description": "Busca por nombre o teléfono."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get client by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clients/{{clientId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clients",
+                "{{clientId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bikes",
+      "item": [
+        {
+          "name": "Create bike",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('bikeId', pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"ABC123\",\n  \"brand\": \"Honda\",\n  \"model\": \"CB 190R\",\n  \"cylinder\": 190,\n  \"clientId\": \"{{clientId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bikes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bikes"
+              ]
+            },
+            "description": "Crea una moto asociada al cliente guardado en clientId. Usa una placa no registrada."
+          },
+          "response": []
+        },
+        {
+          "name": "List bikes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bikes?plate=ABC",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bikes"
+              ],
+              "query": [
+                {
+                  "key": "plate",
+                  "value": "ABC",
+                  "description": "Filtra por coincidencia parcial de placa."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get bike by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bikes/{{bikeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bikes",
+                "{{bikeId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Work orders",
+      "item": [
+        {
+          "name": "Create work order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('orderId', pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bikeId\": \"{{bikeId}}\",\n  \"faultDescription\": \"Revisión general y cambio de aceite\",\n  \"entryDate\": \"2026-01-15T10:30:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/work-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders"
+              ]
+            },
+            "description": "Crea una orden para la moto guardada en bikeId."
+          },
+          "response": []
+        },
+        {
+          "name": "List work orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/work-orders?status=RECIBIDA&plate=ABC&page=1&pageSize=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "RECIBIDA",
+                  "description": "Opcional. Estados: RECIBIDA, DIAGNOSTICO, EN_PROCESO, LISTA, ENTREGADA, CANCELADA."
+                },
+                {
+                  "key": "plate",
+                  "value": "ABC",
+                  "description": "Opcional. Coincidencia parcial de placa."
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Entre 1 y 100."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get work order by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/work-orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change work order status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"DIAGNOSTICO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/work-orders/{{orderId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders",
+                "{{orderId}}",
+                "status"
+              ]
+            },
+            "description": "Envía una transición permitida desde el estado actual."
+          },
+          "response": []
+        },
+        {
+          "name": "Add item to work order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('itemId', pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"REPUESTO\",\n  \"description\": \"Aceite 10W-40\",\n  \"count\": 2,\n  \"unitValue\": 35000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/work-orders/{{orderId}}/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders",
+                "{{orderId}}",
+                "items"
+              ]
+            },
+            "description": "Agrega un repuesto o mano de obra. count debe ser mayor que 0 y unitValue mayor o igual a 0."
+          },
+          "response": []
+        },
+        {
+          "name": "Remove work order item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/work-orders/items/{{itemId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "work-orders",
+                "items",
+                "{{itemId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
