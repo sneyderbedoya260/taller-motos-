@@ -50,6 +50,10 @@ npm run dev
 
 la api queda en `http://localhost:4000/api`. para produccion se usa `npm start`.
 
+### despliegue en Railway (un solo servicio)
+
+conecta el repositorio y deja **Root Directory** vacio para desplegar desde la raiz del proyecto. Railway usara `npm run build` para instalar y compilar el frontend, y `npm start` para iniciar el backend, que tambien sirve la aplicacion web en el mismo dominio. configura las variables `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` para la base de datos. Railway asigna `PORT` automaticamente.
+
 ### 3. frontend
 
 en otra terminal:
@@ -88,7 +92,7 @@ frontend (`frontend/.env`):
 
 | variable | descripcion | ejemplo |
 |---|---|---|
-| `VITE_API_URL` | url base de la api | `http://localhost:4000/api` |
+| `VITE_API_URL` | url base de la api durante desarrollo local; en produccion la web usa `/api` en el mismo dominio | `http://localhost:4000/api` |
 
 ## endpoints
 

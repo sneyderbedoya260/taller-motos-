@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const http = axios.create({ baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api' });
+const baseURL = import.meta.env.DEV
+  ? import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
+  : '/api';
+
+const http = axios.create({ baseURL });
 
 export function obtenerMensajeError(error) {
   const datos = error?.response?.data;

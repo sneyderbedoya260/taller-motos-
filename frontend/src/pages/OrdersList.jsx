@@ -28,6 +28,9 @@ export default function ListaOrdenes() {
     setError('');
     listarOrdenes({ status: estado || undefined, plate: placaFiltrada || undefined, page: pagina, pageSize: 10 })
       .then((resultado) => {
+        if (!Array.isArray(resultado?.data)) {
+          throw new Error('La API devolvio un formato inesperado al cargar las ordenes.');
+        }
         if (activo) setOrdenes(resultado);
       })
       .catch((errorSolicitud) => {
@@ -93,7 +96,7 @@ export default function ListaOrdenes() {
           </button>
         </div>
       )}
-      {!cargando && !error && ordenes?.data.length === 0 && (
+      {!cargando && !error && Array.isArray(ordenes?.data) && ordenes.data.length === 0 && (
         <div className="panel empty-state">
           <h2>No hay ordenes para mostrar</h2>
           <p>Crea una orden nueva para comenzar a gestionar las reparaciones.</p>
@@ -101,7 +104,7 @@ export default function ListaOrdenes() {
         </div>
       )}
 
-      {!cargando && !error && ordenes?.data.length > 0 && (
+      {!cargando && !error && Array.isArray(ordenes?.data) && ordenes.data.length > 0 && (
         <>
           <div className="table-wrap">
             <table>
