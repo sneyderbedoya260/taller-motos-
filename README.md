@@ -1,4 +1,4 @@
-# taller de motos
+# taller-motos-
 
 aplicacion web para llevar el control de alistamientos y reparaciones de un taller de motos. permite registrar clientes, motos y ordenes de trabajo con sus items (mano de obra y repuestos).
 
