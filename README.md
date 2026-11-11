@@ -71,7 +71,7 @@ npm run dev
 
 abrir `http://localhost:5173`.
 
-Para desplegar el frontend en Railway, usa `frontend` como directorio raíz y configura el dominio público de la API en `VITE_API_URL` (incluyendo `/api`). Vite también carga `frontend/.env.production` al compilar para producción.
+Para el despliegue separado con el backend en Render y el frontend en Vercel, configura `VITE_API_URL` en Vercel con la URL publica del backend terminada en `/api` y vuelve a desplegar el frontend. En Render, configura `CORS_ORIGIN` con el dominio de Vercel.
 
 ## variables de entorno
 
@@ -92,7 +92,7 @@ frontend (`frontend/.env`):
 
 | variable | descripcion | ejemplo |
 |---|---|---|
-| `VITE_API_URL` | url base de la api durante desarrollo local; en produccion la web usa `/api` en el mismo dominio | `http://localhost:4000/api` |
+| `VITE_API_URL` | url base de la api; en Vercel usa el dominio del backend Render terminado en `/api` | `http://localhost:4000/api` |
 
 ## endpoints
 
