@@ -87,7 +87,7 @@ backend (`backend/.env`):
 | `DB_PASSWORD` | clave de mysql | |
 | `DB_SSL` | habilita TLS para proveedores administrados como TiDB Cloud | `false` |
 | `DB_SYNC` | si es `true`, sequelize crea las tablas faltantes al iniciar. con el script sql se deja en `false` | `false` |
-| `CORS_ORIGIN` | origenes permitidos, separados por coma | `http://localhost:5173` |
+| `CORS_ORIGIN` | origenes adicionales permitidos, separados por coma; el dominio principal de Vercel ya esta permitido | `http://localhost:5173` |
 
 frontend (`frontend/.env`):
 

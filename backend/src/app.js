@@ -7,14 +7,17 @@ const rutasApi = require('./routes');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
 
 const aplicacion = express();
-const origenesPermitidos = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+const origenesPermitidos = new Set([
+  'https://taller-motos-wuia.vercel.app',
+  ...(process.env.CORS_ORIGIN || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
-  .filter(Boolean);
+  .filter(Boolean),
+]);
 
 aplicacion.use(cors({
   origin(origen, respuesta) {
-    respuesta(null, !origen || origenesPermitidos.includes(origen));
+    respuesta(null, !origen || origenesPermitidos.has(origen));
   },
 }));
 aplicacion.use(express.json());
